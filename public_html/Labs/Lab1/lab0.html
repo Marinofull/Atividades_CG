@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MATA65 - Computação Gráfica</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="../lib/webgl-utils.js"></script>
+    <script type="text/javascript" src="soCanvas.js"></script>
+    <script id="shader-vs" type="x-shader/x-vertex">
+        attribute vec3 aVertexPosition;
+        void main(void) {
+            gl_Position = vec4(aVertexPosition, 1.0);
+        }   
+    </script>
+    <script id="shader-fs" type="x-shader/x-fragment">
+        precision mediump float;
+        void main(void) {
+            gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+        }
+    </script>
+    <script type="text/javascript" src="lab0.js"></script>
+</head>
+<body onload="webGLStart();">
+    <h1>Laboratorio 1 - Exemplo 1</h1><br />
+    <p>Verifica se ha suporte a WebGL e abre um canvas.</p>
+    
+    <script type="text/javascript">
+        webGLStart();
+    </script>
+    <canvas id="SoCanvas" style="border: none; background-color: #000;"  width="500" height="500">        
+    </canvas>
+</body>
+</html>

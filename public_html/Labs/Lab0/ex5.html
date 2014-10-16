@@ -1,0 +1,47 @@
+<head>
+<title>MATA65 - Computa��o Gr�fica</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript">
+
+	function fAlert() {
+		alert("Pressione OK para continuar!");
+		document.getElementById("output").innerHTML = "<b>Alerta selcionado</b>.";		
+		}
+	function fConf() {
+		var r = confirm("Pressione um botao");
+		if (r==true) {
+		  x = "Voce pressionou o bot�o OK!";
+		  }
+		else{
+		  x = "Voce pressionou o bot�o Cancel!";
+		  }				 
+		document.getElementById("output").innerHTML = " <b>Resultado: </b> <i>"+x+"</i>.";		
+		}
+	function fPrmpt() {
+		var r = prompt("Digite alguma coisa","Alguma coisa");
+		
+		if (r != null) 
+			x = "Voce digitou " + r + "! Correto?";
+		else  
+			x = "Voce nao digitou nada! Correto?";
+		
+		document.getElementById("output").innerHTML = x;
+		}
+
+</script>
+</head>
+
+<html>
+<body onload="outMsg();">    
+
+	<h1>Laboratorio 0 - Exemplo 5</h1><br/>
+    <p>3 botoes para selecionar 3 paineis de alerta.</p><br/>
+    <div id="output"> </div><br/><br/>
+    <button onclick="fAlert()">Alert Box</button>
+    <button onclick="fConf()">Confirm Box</button>
+    <button onclick="fPrmpt()">Prompt Box</button>
+
+</body>
+
+</html>

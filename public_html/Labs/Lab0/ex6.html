@@ -1,0 +1,41 @@
+<head>
+<title>MATA65 - Computa��o Gr�fica</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+<script type="text/javascript">
+
+	function initCanvas() {
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+		
+		ctx.fillStyle = "#FF00FF";
+		ctx.strokeStyle="Blue";
+		ctx.fillRect(0,0,100,50);
+		
+		ctx.strokeStyle="Red";
+		ctx.beginPath();
+		ctx.arc(150,50,50,0,2*Math.PI);
+		ctx.stroke();
+		
+		ctx.strokeStyle="Yellow";
+		ctx.font = "30px Arial";
+		ctx.strokeText("Hello World",10,50);		
+		}
+	
+</script>
+
+
+</head>
+<body onload="initCanvas()">
+    <h1>Laboratorio 0 - Exemplo 6</h1><br />
+    <p>Define um canvas 2D e desenha algumas formas basicas.</p>
+    <br/>
+    <div id="output"> </div>
+    <br/>
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid Black;">
+    	Seu navegador n�o tem suporte a tag HTML5 canvas.
+    </canvas>
+</body>
+
+</html>

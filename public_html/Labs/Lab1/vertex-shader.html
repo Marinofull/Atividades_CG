@@ -1,0 +1,50 @@
+<html>
+
+<head>
+<title>MATA65 - Computa��o Gr�fica</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<script id="shader-vs" type="x-shader/x-vertex">
+	attribute vec3 aVertexPosition;
+	attribute vec3 aVertexColor;
+		
+	varying vec3 vColor;
+	
+	void main(void) {
+		float raio = sqrt((aVertexPosition.x*aVertexPosition.x) + (aVertexPosition.y*aVertexPosition.y));
+		if (raio < 0.5) 
+			gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
+		else
+			gl_Position = vec4(aVertexPosition, 1.0);
+		vColor = aVertexColor; 
+		gl_PointSize = 5.0;
+	}
+</script>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+	precision mediump float;
+		
+	varying vec3 vColor;
+		
+	void main(void) {
+		gl_FragColor = vec4(vColor, 1.0);
+		}
+</script>
+
+<script type="text/javascript" src="../lib/webgl-utils.js"></script>
+<script type="text/javascript" src="../lib/shaders.js"></script>
+<script type="text/javascript" src="vertex-shader.js">
+
+</script>
+
+</head>
+
+<body onload="webGLStart();">
+    <h1>Laboratorio 2 - Exemplo 1</h1><br />
+    <p>Modifica a posicao dos pontos de um grid no Vertex Shader.</p>
+
+    <canvas id="VertShader" style="border: none;" width="500" height="500"></canvas>
+
+</body>
+
+</html>
