@@ -4,20 +4,30 @@
     <title>MATA65 - Computação Gráfica</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="../lib/webgl-utils.js"></script>
-    <script type="text/javascript" src="soCanvas.js"></script>
     <script id="shader-vs" type="x-shader/x-vertex">
-        attribute vec3 aVertexPosition;
-        void main(void) {
-            gl_Position = vec4(aVertexPosition, 1.0);
-        }   
-    </script>
-    <script id="shader-fs" type="x-shader/x-fragment">
-        precision mediump float;
-        void main(void) {
-            gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-        }
-    </script>
+	attribute vec3 aVertexPosition;
+	attribute vec3 aVertexColor;
+		
+	varying vec3 vColor;
+	
+	void main(void) {
+		gl_Position = vec4(aVertexPosition, 1.0);
+		vColor = aVertexColor; 
+	}
+</script>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+	precision mediump float;
+		
+	varying vec3 vColor;
+		
+	void main(void) {
+		gl_FragColor = vec4(vColor, 1.0);
+	}
+</script>
+    
+    <script type="text/javascript" src="../lib/webgl-utils.js"></script>
+    <script type="text/javascript" src="../lib/shaders.js"></script>
     <script type="text/javascript" src="lab0.js"></script>
 </head>
 <body onload="webGLStart();">

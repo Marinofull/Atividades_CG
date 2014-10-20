@@ -6,9 +6,19 @@ var vColor 	= new Array;
 var vPosBuf;
 var vColorBuf;
 var vPSize;
+var qtd;
 
 // ********************************************************
+function changeQtd(){
+    
+    qtd = (document.getElementById("pQuant").value);
+    //gl.clear(gl.COLOR_BUFFER_BIT);
+    build2DGrid(qtd);
+    initBuffers();
+    drawScene(shader);
+}
 // ********************************************************
+// trivial, altera o tamanho dos pontos e chama o dwawnScene pra atualizar os dados
 function changePSize(v) {
 	var text = document.getElementById("output");
 	text.innerHTML = "Point Size = " + v;
@@ -17,23 +27,27 @@ function changePSize(v) {
 }
 
 // ********************************************************
-// ********************************************************
-function build2DGrid(nx, ny) {
+// cria a grade com os pontos iniciais dispostos pelo canvas
+function build2DGrid(n) {
+
+var nx, ny;
+nx = n;
+ny = n;
 
 var dx = 2.0/nx;
 var dy = 2.0/ny;
 
-	for(i=0 ; i <= nx ; i++) {
-		for (j=0 ; j <= ny ; j++) {
-			vPos.push(-1.0+i*dx);
-			vPos.push(-1.0+j*dy);
-			vPos.push(0.0);
-	
-			vColor.push(i*dx);
-			vColor.push(j*dy);
-			vColor.push(0.0);
-			}
-		}
+    for(i=0 ; i <= n ; i++) {
+        for (j=0 ; j <= n ; j++) {
+            vPos.push(-1.0+i*dx);
+            vPos.push(-1.0+j*dy);
+            vPos.push(0.0);
+
+            vColor.push(i*dx);
+            vColor.push(j*dy);
+            vColor.push(0.0);
+            }
+        }
 }
 
 // ********************************************************
@@ -54,42 +68,42 @@ function initGL() {
 // ********************************************************
 function initBuffers() {
 	
-	vPosBuf = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, vPosBuf);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vPos), gl.STATIC_DRAW);
-	vPosBuf.itemSize = 3;
-	vPosBuf.numItems = vPos.length/3;
-	
-	vColorBuf = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, vColorBuf);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vColor), gl.STATIC_DRAW);
-	vColorBuf.itemSize = 3;
-	vColorBuf.numItems = vColor.length/3;
+    vPosBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vPosBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vPos), gl.STATIC_DRAW);
+    vPosBuf.itemSize = 3;
+    vPosBuf.numItems = vPos.length/3;
+
+    vColorBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vColorBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vColor), gl.STATIC_DRAW);
+    vColorBuf.itemSize = 3;
+    vColorBuf.numItems = vColor.length/3;
 }
 
 // ********************************************************
 // ********************************************************
 function drawScene(shader) {
-	gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-	gl.clear(gl.COLOR_BUFFER_BIT);
-	
-	gl.useProgram(shader);
+    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
-	gl.bindBuffer(gl.ARRAY_BUFFER, vPosBuf);
-	gl.enableVertexAttribArray(shader.vPosAttr);		
-	gl.vertexAttribPointer(shader.vPosAttr, vPosBuf.itemSize, gl.FLOAT, false, 0, 0);
-	
-	gl.bindBuffer(gl.ARRAY_BUFFER, vColorBuf);
-	gl.enableVertexAttribArray(shader.vColorAttr);	
-	gl.vertexAttribPointer(shader.vColorAttr, vColorBuf.itemSize, gl.FLOAT, false, 0, 0);
-	
-	gl.uniform1f(shader.uPSizeAttr, vPSize);
-	
-	gl.drawArrays(gl.POINTS, 0, vPosBuf.numItems);
-	
-	gl.useProgram(shader);
-	gl.disableVertexAttribArray(shader.vPosAttr);		
-	gl.disableVertexAttribArray(shader.vColorAttr);	
+    gl.useProgram(shader);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, vPosBuf);
+    gl.enableVertexAttribArray(shader.vPosAttr);		
+    gl.vertexAttribPointer(shader.vPosAttr, vPosBuf.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, vColorBuf);
+    gl.enableVertexAttribArray(shader.vColorAttr);	
+    gl.vertexAttribPointer(shader.vColorAttr, vColorBuf.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.uniform1f(shader.uPSizeAttr, vPSize);
+
+    gl.drawArrays(gl.POINTS, 0, vPosBuf.numItems);
+
+    gl.useProgram(shader);
+    gl.disableVertexAttribArray(shader.vPosAttr);		
+    gl.disableVertexAttribArray(shader.vColorAttr);	
 }
 
 // ********************************************************
@@ -102,29 +116,26 @@ function webGLStart() {
 	initGL(canvas);
 
 	if (!gl) {
-		alert("Could not initialise WebGL, sorry :-(");
-		return;
-		}
+            alert("Could not initialise WebGL, sorry :-(");
+            return;
+        }
 
 	shader = initShaders("shader", gl);
 	if (shader == null) {
-		alert("Erro na iniciliza��o do shader!!"); 
-		return;
-		}
+            alert("Erro na inicilização do shader!!"); 
+            return;
+	}
 
 	shader.vPosAttr 	= gl.getAttribLocation(shaderProgram, "aVertexPosition");
 	shader.vColorAttr 	= gl.getAttribLocation(shaderProgram, "aVertexColor");
 	shader.uPSizeAttr	= gl.getUniformLocation(shaderProgram, "uVertexPSize");
 
-	if ( 	(shader.vPosAttr < 0) ||
-			(shader.vColorAttr < 0) ||
-			(shader.uPSizeAttr < 0) ) {
-		alert("Shader: attribute ou uniform n�o localizado!");
-		return;
-		}
-	build2DGrid(30,30);
+	if ( (shader.vPosAttr < 0) || (shader.vColorAttr < 0) || (shader.uPSizeAttr < 0) ) {
+            alert("Shader: attribute ou uniform não localizado!");
+            return;
+        }
+
+	build2DGrid(qtd);
 	initBuffers();
 	drawScene(shader);
 }
-
-

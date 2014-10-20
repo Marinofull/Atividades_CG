@@ -7,7 +7,6 @@
 
 function webGLStart() {
     var canvas = document.getElementById("SoCanvas");
-    //var gl = initGL(canvas);
     var gl = canvas.getContext("webgl");
     var shader = initShaders("shader", gl);
     if(shader === null){
@@ -20,10 +19,6 @@ function webGLStart() {
         return;
     }
     initBuffers(gl);
-//    if (!gl) {
-//        alert("Could not initialise WebGL, sorry :-(");
-//        return;
-//    }
     drawScene(gl, shader);
 }
 
@@ -34,9 +29,10 @@ function initGL(canvas) {
     }
     gl.viewportWidth = canvas.width;
     gl.viewportHeight = canvas.height;
-    //gl.clearColor(5.0, 5.0, 5.0, 9.0);
+    gl.clearColor(5.0, 5.0, 5.0, 9.0);
     return gl;
 }
+
 function drawScene(gl, shader) {
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);

@@ -40,8 +40,10 @@
 <body onload="webGLStart();">
     <h1>Laboratorio 2 - Exemplo 4</h1><br />
     <p>Desenha uma grade de pontos no canvas.</p>
-    <div id="output">Point Size = 2.0</div><br\><br\>
-    <input type="range" id="pSize" min="1.0" max="10.0" step="0.5" value="2.0" oninput="changePSize(this.value)"><br/><br/>
+    <div id="output">Point Size = 2.0</div><br><br>
+    <input type="text" name="quant" id="pQuant">
+    <input type="button" name="butao" onclick="changeQtd()">
+    <input type="range" id="pSize" min="1" max="17" step="0.001" value="2.0" oninput="changePSize(this.value)"><br/><br/>
     <canvas id="gridPoints" style="border: none;" width="500" height="500"></canvas>
 </body>
 

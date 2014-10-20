@@ -5,7 +5,6 @@ var shader	= null;
 // ********************************************************
 // ********************************************************
 function initGL() {
-	
 	gl = canvas.getContext("webgl");
 	if (!gl) {
 		alert("Could not initialise WebGL, sorry :-(");
@@ -22,33 +21,33 @@ var vPosBuf;
 var vColorBuf;
 
 function initBuffers() {
-var vPos 	= 	[	-0.5, -0.5,  0.0,
-		 			 0.5, -0.5,  0.0,
-		 			 0.5,  0.5,  0.0,
-		 			-0.5, -0.5,  0.0,
-		 			 0.5,  0.5,  0.0,
-		 			-0.5,  0.5,  0.0
-				];
+var vPos = [-0.5, -0.5,  0.0,
+                0.5, -0.5,  0.0,
+                0.5,  0.5,  0.0,
+               -0.5, -0.5,  0.0,
+                0.5,  0.5,  0.0,
+               -0.5,  0.5,  0.0
+            ];
 
-var vColor 	= 	[	1.0, 0.0,  0.0,
-					0.0, 1.0,  0.0,
-					0.0, 0.0,  1.0,
-					1.0, 0.0,  0.0,
-					0.0, 0.0,  1.0,
-					1.0, 1.0,  1.0
-				];
+var vColor = [1.0, 0.0,  0.0,
+                0.0, 1.0,  0.0,
+                0.0, 0.0,  1.0,
+                1.0, 0.0,  0.0,
+                0.0, 0.0,  1.0,
+                1.0, 1.0,  1.0
+            ];
 	
-	vPosBuf = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, vPosBuf);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vPos), gl.STATIC_DRAW);
-	vPosBuf.itemSize = 3;
-	vPosBuf.numItems = 6;
-	
-	vColorBuf = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, vColorBuf);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vColor), gl.STATIC_DRAW);
-	vColorBuf.itemSize = 3;
-	vColorBuf.numItems = 6;
+    vPosBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vPosBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vPos), gl.STATIC_DRAW);
+    vPosBuf.itemSize = 3;
+    vPosBuf.numItems = 6;
+
+    vColorBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vColorBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vColor), gl.STATIC_DRAW);
+    vColorBuf.itemSize = 3;
+    vColorBuf.numItems = 6;
 }
 
 // ********************************************************
@@ -83,16 +82,16 @@ function webGLStart() {
 	
 	shader = initShaders("shader", gl);
 	if (shader == null) {
-		alert("Erro na iniciliza��o do shader!!"); 
-		return;
-		}
+            alert("Erro na inicilização do shader!!"); 
+            return;
+            }
 		
-	shader.vPosAttr 	= gl.getAttribLocation(shaderProgram, "aVertexPosition");
-	shader.vColorAttr 	= gl.getAttribLocation(shaderProgram, "aVertexColor");
+	shader.vPosAttr = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+	shader.vColorAttr = gl.getAttribLocation(shaderProgram, "aVertexColor");
 
 	if ( 	(shader.vPosAttr < 0) ||
 			(shader.vColorAttr < 0) ) {
-		alert("Shader attribute ou uniform n�o localizado!");
+		alert("Shader attribute ou uniform não localizado!");
 		return;
 		}
 	initBuffers();

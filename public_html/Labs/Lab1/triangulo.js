@@ -23,10 +23,10 @@ var vPosBuf;
 // ********************************************************
 
 function initBuffers() {
-var vPos 	= 	[	-0.5, -0.5,  0.0,
-		 			0.5, -0.5,  0.0,
-		 			0.0,  0.5,  0.0
-				];
+var vPos = [-0.5, -0.5,  0.0,
+            0.5, -0.5,  0.0,
+            0.0,  0.5,  0.0
+            ];
 
 	vPosBuf = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, vPosBuf);
@@ -66,7 +66,7 @@ function webGLStart() {
 		return;
 		}
 		
-	shader.vPosAttr 	= gl.getAttribLocation(shaderProgram, "aVertexPosition");
+	shader.vPosAttr = gl.getAttribLocation(shaderProgram, "aVertexPosition");
 
 	if (shader.vPosAttr < 0) {
 		alert("Shader: atributo nao localizado!");

@@ -11,17 +11,17 @@ function build2DGrid(nx, ny) {
 var dx = 2.0/nx;
 var dy = 2.0/ny;
 
-	for(i=0 ; i <= nx ; i++) {
-		for (j=0 ; j <= ny ; j++) {
-			vPos.push(-1.0+i*dx);
-			vPos.push(-1.0+j*dy);
-			vPos.push(0.0);
-	
-			vColor.push(i*dx);
-			vColor.push(j*dy);
-			vColor.push(0.0);
-			}
-		}
+    for(i=0 ; i <= nx ; i++) {
+        for (j=0 ; j <= ny ; j++) {
+            vPos.push(-1.0+i*dx);
+            vPos.push(-1.0+j*dy);
+            vPos.push(0.0);
+
+            vColor.push(i*dx);
+            vColor.push(j*dy);
+            vColor.push(0.0);
+            }
+        }
 }
 
 // ********************************************************
@@ -99,7 +99,7 @@ function webGLStart() {
 
 	if ( 	(shader.vPosAttr < 0) ||
 			(shader.vColorAttr < 0) ) {
-		alert("Shader attribute ou uniform n�o localizado!");
+		alert("Shader attribute ou uniform não localizado!");
 		return;
 		}
 	build2DGrid(30,30);
