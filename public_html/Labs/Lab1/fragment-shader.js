@@ -61,20 +61,20 @@ function initBuffers() {
 // ********************************************************
 // ********************************************************
 function drawScene(shader) {
-	gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-	gl.clear(gl.COLOR_BUFFER_BIT);
-	
-	gl.useProgram(shader);
+    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
-	gl.bindBuffer(gl.ARRAY_BUFFER, vPosBuf);
-	gl.enableVertexAttribArray(shader.vPosAttr);		
-	gl.vertexAttribPointer(shader.vPosAttr, vPosBuf.itemSize, gl.FLOAT, false, 0, 0);
-	
-	gl.bindBuffer(gl.ARRAY_BUFFER, vColorBuf);
-	gl.enableVertexAttribArray(shader.vColorAttr);	
-	gl.vertexAttribPointer(shader.vColorAttr, vColorBuf.itemSize, gl.FLOAT, false, 0, 0);
-	
-	gl.drawArrays(gl.POINTS, 0, vPosBuf.numItems);
+    gl.useProgram(shader);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, vPosBuf);
+    gl.enableVertexAttribArray(shader.vPosAttr);		
+    gl.vertexAttribPointer(shader.vPosAttr, vPosBuf.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, vColorBuf);
+    gl.enableVertexAttribArray(shader.vColorAttr);	
+    gl.vertexAttribPointer(shader.vColorAttr, vColorBuf.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.drawArrays(gl.POINTS, 0, vPosBuf.numItems);
 }
 
 // ********************************************************
