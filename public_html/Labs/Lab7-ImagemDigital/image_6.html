@@ -24,8 +24,22 @@
 	varying vec2 vTextureCoord;
 		
 	void main(void) {	
-		vec4 componet= texture2D(uSampler, vTextureCoord);
-                gl_FragColor = vec4(componet.r, componet.r, componet.r, 1);
+		vec4 component= texture2D(uSampler, vTextureCoord);
+    	
+		/**
+         * não sei se era assim que deveria escurecer kkk
+         */
+		component.r -= component.r/1.1;
+		component.g -= component.g/1.1;
+		component.b -= component.b/1.1;
+
+		// float k=0.999;
+
+		// component.r -= k;
+		// component.g -= k;
+		// component.b -= k;
+
+    	gl_FragColor = vec4(component.r, component.g, component.b, 1.0);
 		}
 </script>
 
@@ -37,7 +51,7 @@
 
 <body onload="webGLStart();">
     <h1>Laboratorio 7</h1><br />
-    <p>Carrega e exibe uma imagem.</p>
+    <p>Escurecimento da imagen</p>
     <br/>
     <div id="output"> </div>
     <br/>
