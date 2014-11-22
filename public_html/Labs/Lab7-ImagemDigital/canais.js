@@ -10,11 +10,12 @@ function initGL(canvas) {
 	
 	var gl = canvas.getContext("webgl");
 	if (!gl) {
-		return (null);
-		}
+            return (null);
+        }
 	
-	gl.viewportWidth 	= canvas.width;
-	gl.viewportHeight 	= canvas.height;
+	gl.viewportWidth 	= canvas.width/2.0;
+	gl.viewportHeight 	= canvas.height/2.0;
+        gl.viewportMetrichs = (gl.viewportHeight + gl.viewportWidth)/2.0
 	
 	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -85,10 +86,27 @@ var vTex = new Array;
 
 // ********************************************************
 // ********************************************************
-function drawScene(o) {
-	
-	gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-	gl.clear(gl.COLOR_BUFFER_BIT);
+function drawScene(o, channel) {
+
+	switch( channel ){
+
+		case 0: {
+			gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+			break;
+		}	
+		case 1: {
+			gl.viewport(gl.viewportMetrichs, 0, gl.viewportWidth, gl.viewportHeight);
+			break;
+		}	
+		case 2: {
+			gl.viewport(0, gl.viewportMetrichs, gl.viewportWidth, gl.viewportHeight);
+			break;
+		}	
+		case 3: {
+			gl.viewport(gl.viewportMetrichs, gl.viewportMetrichs, gl.viewportWidth, gl.viewportHeight);
+			break;
+		}	
+	}
 	
     try {
     	gl.useProgram(shader);
@@ -102,6 +120,7 @@ function drawScene(o) {
 	gl.bindTexture(gl.TEXTURE_2D, texture);
 
 	gl.uniform1i(shader.uSampler, 0);
+	gl.uniform1i(shader.uChannel, channel);
 		
 	if (o.vertexBuffer != null) {
 		gl.bindBuffer(gl.ARRAY_BUFFER, o.vertexBuffer);
@@ -145,7 +164,12 @@ function initTexture() {
 	    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 	    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 		gl.bindTexture(gl.TEXTURE_2D, null);
-		drawScene(baseImage);
+
+		gl.clear(gl.COLOR_BUFFER_BIT);
+		drawScene(baseImage, 0);
+		drawScene(baseImage, 1);
+		drawScene(baseImage, 2);
+		drawScene(baseImage, 3);
 		}
 	image.src = "../images/lena.png";
 }
@@ -171,10 +195,12 @@ function webGLStart() {
 	shader.vPositionAttr 	= gl.getAttribLocation(shaderProgram, "aVertexPosition");
 	shader.vTexAttr 		= gl.getAttribLocation(shaderProgram, "aVertexTexture");
 	shader.uSampler	 		= gl.getUniformLocation(shader, "uSampler");
+	shader.uChannel	 		= gl.getUniformLocation(shader, "uChannel");
 
 	if ( 	(shader.vPositionAttr < 0) ||
 			(shader.vTexAttr < 0) ||
-			(shader.uSampler < 0) ) {
+			(shader.uSampler < 0) ||
+                        (shader.uChannel < 0)) {
 		alert("Shader attribute ou uniform nao localizado!");
 		return;
 		}
@@ -185,3 +211,5 @@ function webGLStart() {
 		}
 	initTexture();
 }
+
+

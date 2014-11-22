@@ -20,21 +20,29 @@
 	precision mediump float;
 		
 	uniform sampler2D uSampler;
+        
+        uniform int uChannel;
 	
 	varying vec2 vTextureCoord;
         
 	void main(void) {	
-		vec4 component= texture2D(uSampler, vTextureCoord);
-                
-        float media = (component.r + component.g + component.b)/3.0;
-
-        gl_FragColor = vec4(component.x, component.y, component.z, component.w);
-		}
+            vec4 component= texture2D(uSampler, vTextureCoord);
+               
+            //gl_FragColor = vec4(component.x, component.y, component.z, component.w);
+            if(uChannel == 1)
+                component = vec4(component.x, 0.0, 0.0, component.w);
+            if(uChannel == 2)
+                component = vec4(0.0, component.y, 0.0, component.w);
+            if(uChannel == 3)
+                component = vec4(0.0, 0.0, component.z, component.w);
+            
+            gl_FragColor = vec4(component.x, component.y, component.z, component.w);
+        }
 </script>
 
 <script type="text/javascript" src="../lib/webgl-utils.js"></script>
 <script type="text/javascript" src="../lib/shaders.js"></script>
-<script type="text/javascript" src="image_1.js"></script>
+<script type="text/javascript" src="canais.js"></script>
 
 </head>
 
