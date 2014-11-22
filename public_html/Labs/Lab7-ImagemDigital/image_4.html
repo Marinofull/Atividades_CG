@@ -22,16 +22,10 @@
 	uniform sampler2D uSampler;
 	
 	varying vec2 vTextureCoord;
-	
-        /*precision mediump float k, b, t;
-        k=0.5;
-        b=0.0;
-        t=1.0;*/
-        
+	        
 	void main(void) {	
 		vec4 component= texture2D(uSampler, vTextureCoord);
                 
-                //falta saber qual a zoha desse tipo          
                 component.r = 1.0 - component.r;
                 component.g = 1.0 - component.g;
                 component.b = 1.0 - component.b;

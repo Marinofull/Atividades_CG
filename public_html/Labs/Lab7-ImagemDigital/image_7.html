@@ -24,12 +24,19 @@
 	varying vec2 vTextureCoord;
 		
 	void main(void) {	
-		vec4 componet= texture2D(uSampler, vTextureCoord);
-                gl_FragColor = vec4(componet.r, componet.r, componet.r, 1);
+		vec4 component= texture2D(uSampler, vTextureCoord);
+
+		float gamma = 0.5;
+
+		component.r = pow(component.r, gamma);
+		component.g = pow(component.g, gamma);
+		component.b = pow(component.b, gamma);
+
+        gl_FragColor = vec4(component.r, component.g, component.b, 1);
 		}
 </script>
 
-<script type="text/javascript" src="../lib/webgl-utils.js"></script>
+<5cript type="text/javascript" src="../lib/webgl-utils.js"></script>
 <script type="text/javascript" src="../lib/shaders.js"></script>
 <script type="text/javascript" src="image.js"></script>
 

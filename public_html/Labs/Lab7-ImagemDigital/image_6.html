@@ -26,18 +26,12 @@
 	void main(void) {	
 		vec4 component= texture2D(uSampler, vTextureCoord);
     	
-		/**
-         * não sei se era assim que deveria escurecer kkk
-         */
-		component.r -= component.r/1.1;
-		component.g -= component.g/1.1;
-		component.b -= component.b/1.1;
+		float gamma = 10.1;
 
-		// float k=0.999;
+		component.r = pow(component.r, gamma);
+		component.g = pow(component.g, gamma);
+		component.b = pow(component.b, gamma);
 
-		// component.r -= k;
-		// component.g -= k;
-		// component.b -= k;
 
     	gl_FragColor = vec4(component.r, component.g, component.b, 1.0);
 		}

@@ -25,7 +25,20 @@
 		
 	void main(void) {	
 		vec4 componet= texture2D(uSampler, vTextureCoord);
-                gl_FragColor = vec4(componet.r, componet.r, componet.r, 1);
+        
+		float media = (componet.r + componet.g + componet.b)/3.0;
+
+		if(media < 0.4){
+			media = pow(media, 3.3);
+		}
+		else{
+			media = pow(media, 0.3);
+		}
+
+		componet.r = pow(componet.r, 5.9999);
+
+		gl_FragColor = vec4(componet.r, componet.g, componet.b, 1.0);
+        // gl_FragColor = vec4(media, media, media, 1.0);
 		}
 </script>
 

@@ -22,19 +22,13 @@
 	uniform sampler2D uSampler;
 	
 	varying vec2 vTextureCoord;
-	
-        /*precision mediump float k, b, t;
-        k=0.5;
-        b=0.0;
-        t=1.0;*/
         
 	void main(void) {	
 		vec4 component= texture2D(uSampler, vTextureCoord);
                 
-                //falta saber qual a zoha desse tipo          
-                component.r = (component.r + component.g + component.b)/3.0;
-                
-                gl_FragColor = vec4(component.r, component.r, component.r, 1.0);
+        float media = (component.r + component.g + component.b)/3.0;
+
+        gl_FragColor = vec4(component.x, component.y, component.z, component.w);
 		}
 </script>
 
